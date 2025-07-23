@@ -12,6 +12,9 @@ const serverless = require('serverless-http')
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/')));
 app.use(cors())
+console.log('MONGO_URI:', process.env.MONGO_URI);
+console.log('MONGO_USERNAME:', process.env.MONGO_USERNAME);
+console.log('MONGO_PASSWORD:', process.env.MONGO_PASSWORD);
 
 mongoose.connect(process.env.MONGO_URI, {
     user: process.env.MONGO_USERNAME,
