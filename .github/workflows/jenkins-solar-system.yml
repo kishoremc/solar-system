@@ -10,14 +10,18 @@ env:
     MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
 jobs:
   unit-testing:
-      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          nodejs-version: [10, 12, 14]
+          operating_system: [ubuntu-latest, windows-latest]
+      runs-on: ${{matrix.operating_system}}
       steps:
          - name: Checkout Repository
            uses: actions/checkout@v4
          - name: Setup NodeJS
            uses: actions/setup-node@v4
            with:
-              node-version: 22
+              node-version: ${{ matrix.nodejs_version }}
          - name: Install Dependencies
            run: npm install --no-audit
          - name: Unit Testing
